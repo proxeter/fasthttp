@@ -308,10 +308,16 @@ type Server struct {
 	//     * cONTENT-lenGTH -> Content-Length
 	DisableHeaderNamesNormalizing bool
 
+<<<<<<< HEAD
 	// SleepWhenConcurrencyLimitsExceeded is a duration to be slept of if
 	// the concurrency limit in exceeded (default [when is 0]: don't sleep
 	// and accept new connections immidiatelly).
 	SleepWhenConcurrencyLimitsExceeded time.Duration
+=======
+	// DisableSleepWhenConcurrencyLimitsExceeded
+	// when set to true the server immediately tries to accept new connections.
+	DisableSleepWhenConcurrencyLimitsExceeded bool //concurrency limit
+>>>>>>> Disable sleep when concurrency limits exceeded.
 
 	// NoDefaultServerHeader, when set to true, causes the default Server header
 	// to be excluded from the Response.
@@ -1649,10 +1655,15 @@ func (s *Server) Serve(ln net.Listener) error {
 			//
 			// There is a hope other servers didn't reach their
 			// concurrency limits yet :)
+<<<<<<< HEAD
 			//
 			// See also: https://github.com/valyala/fasthttp/pull/485#discussion_r239994990
 			if s.SleepWhenConcurrencyLimitsExceeded > 0 {
 				time.Sleep(s.SleepWhenConcurrencyLimitsExceeded)
+=======
+			if !s.DisableSleepWhenConcurrencyLimitsExceeded {
+				time.Sleep(100 * time.Millisecond)
+>>>>>>> Disable sleep when concurrency limits exceeded.
 			}
 		}
 		c = nil
