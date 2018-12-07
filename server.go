@@ -17,7 +17,15 @@ import (
 	"time"
 )
 
+<<<<<<< HEAD
 var errNoCertOrKeyProvided = errors.New("cert or key has not provided")
+=======
+const (
+	defaultSleepDurationWhenConcurrenyLimitExceeded = time.Millisecond * 100
+)
+
+var errNoCertOrKeyProvided = errors.New("Cert or key has not provided")
+>>>>>>> Considered @erikdubbelboer's codereview
 
 var (
 	// ErrAlreadyServing is returned when calling Serve on a Server
@@ -309,6 +317,7 @@ type Server struct {
 	DisableHeaderNamesNormalizing bool
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// SleepWhenConcurrencyLimitsExceeded is a duration to be slept of if
 	// the concurrency limit in exceeded (default [when is 0]: don't sleep
 	// and accept new connections immidiatelly).
@@ -318,6 +327,13 @@ type Server struct {
 	// when set to true the server immediately tries to accept new connections.
 	DisableSleepWhenConcurrencyLimitsExceeded bool //concurrency limit
 >>>>>>> Disable sleep when concurrency limits exceeded.
+=======
+	// SleepWhenConcurrencyLimitsExceeded is a duration to be slept of if
+	// the concurrency limit in exceeded (default [when is 0]: 100ms;
+	// any negative value to disable the sleeping and accept new connections
+	// immidiatelly).
+	SleepWhenConcurrencyLimitsExceeded time.Duration
+>>>>>>> Considered @erikdubbelboer's codereview
 
 	// NoDefaultServerHeader, when set to true, causes the default Server header
 	// to be excluded from the Response.
@@ -1656,6 +1672,7 @@ func (s *Server) Serve(ln net.Listener) error {
 			// There is a hope other servers didn't reach their
 			// concurrency limits yet :)
 <<<<<<< HEAD
+<<<<<<< HEAD
 			//
 			// See also: https://github.com/valyala/fasthttp/pull/485#discussion_r239994990
 			if s.SleepWhenConcurrencyLimitsExceeded > 0 {
@@ -1664,6 +1681,14 @@ func (s *Server) Serve(ln net.Listener) error {
 			if !s.DisableSleepWhenConcurrencyLimitsExceeded {
 				time.Sleep(100 * time.Millisecond)
 >>>>>>> Disable sleep when concurrency limits exceeded.
+=======
+			sleepDuration := s.SleepWhenConcurrencyLimitsExceeded
+			if sleepDuration == 0 {
+				sleepDuration = defaultSleepDurationWhenConcurrenyLimitExceeded
+			}
+			if sleepDuration > 0 {
+				time.Sleep(sleepDuration)
+>>>>>>> Considered @erikdubbelboer's codereview
 			}
 		}
 		c = nil
