@@ -18,12 +18,15 @@ import (
 )
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var errNoCertOrKeyProvided = errors.New("cert or key has not provided")
 =======
 const (
 	defaultSleepDurationWhenConcurrenyLimitExceeded = time.Millisecond * 100
 )
 
+=======
+>>>>>>> Considered @erikdubbelboer's codereview, part. 2
 var errNoCertOrKeyProvided = errors.New("Cert or key has not provided")
 >>>>>>> Considered @erikdubbelboer's codereview
 
@@ -329,9 +332,8 @@ type Server struct {
 >>>>>>> Disable sleep when concurrency limits exceeded.
 =======
 	// SleepWhenConcurrencyLimitsExceeded is a duration to be slept of if
-	// the concurrency limit in exceeded (default [when is 0]: 100ms;
-	// any negative value to disable the sleeping and accept new connections
-	// immidiatelly).
+	// the concurrency limit in exceeded (default [when is 0]: don't sleep
+	// and accept new connections immidiatelly).
 	SleepWhenConcurrencyLimitsExceeded time.Duration
 >>>>>>> Considered @erikdubbelboer's codereview
 
@@ -1673,10 +1675,14 @@ func (s *Server) Serve(ln net.Listener) error {
 			// concurrency limits yet :)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Considered @erikdubbelboer's codereview, part. 2
 			//
 			// See also: https://github.com/valyala/fasthttp/pull/485#discussion_r239994990
 			if s.SleepWhenConcurrencyLimitsExceeded > 0 {
 				time.Sleep(s.SleepWhenConcurrencyLimitsExceeded)
+<<<<<<< HEAD
 =======
 			if !s.DisableSleepWhenConcurrencyLimitsExceeded {
 				time.Sleep(100 * time.Millisecond)
@@ -1689,6 +1695,8 @@ func (s *Server) Serve(ln net.Listener) error {
 			if sleepDuration > 0 {
 				time.Sleep(sleepDuration)
 >>>>>>> Considered @erikdubbelboer's codereview
+=======
+>>>>>>> Considered @erikdubbelboer's codereview, part. 2
 			}
 		}
 		c = nil
