@@ -3,7 +3,7 @@ package fasthttpproxy
 import (
 	"net"
 
-	"github.com/valyala/fasthttp"
+	"github.com/trafficstars/fasthttp"
 	"golang.org/x/net/proxy"
 )
 

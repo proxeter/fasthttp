@@ -16,7 +16,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/valyala/fasthttp/fasthttputil"
+	"github.com/trafficstars/fasthttp/fasthttputil"
 )
 
 func TestClientGetWithBody(t *testing.T) {

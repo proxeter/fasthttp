@@ -1,4 +1,4 @@
-module github.com/valyala/fasthttp
+module github.com/trafficstars/fasthttp
 
 go 1.11
 
@@ -9,3 +9,5 @@ require (
 	github.com/valyala/tcplisten v0.0.0-20161114210144-ceec8f93295a
 	golang.org/x/net v0.0.0-20190827160401-ba9fcec4b297
 )
+
+go 1.13
