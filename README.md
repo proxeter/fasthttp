@@ -1,8 +1,7 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 # fasthttp [![Build Status](https://travis-ci.org/valyala/fasthttp.svg?branch=master)](https://travis-ci.org/valyala/fasthttp?branch=master) [![GoDoc](https://godoc.org/github.com/trafficstars/fasthttp?status.svg)](http://godoc.org/github.com/trafficstars/fasthttp) [![fuzzit](https://app.fuzzit.dev/badge?org_id=fasthttp&branch=master)](https://fuzzit.dev) [![Go Report](https://goreportcard.com/badge/github.com/trafficstars/fasthttp)](https://goreportcard.com/report/github.com/trafficstars/fasthttp) [![Sourcegraph](https://sourcegraph.com/github.com/trafficstars/fasthttp/-/badge.svg)](https://sourcegraph.com/github.com/trafficstars/fasthttp?badge)
 
 ![FastHTTP – Fastest and reliable HTTP implementation in Go](https://github.com/fasthttp/docs-assets/raw/master/banner@0.5.png)
+
 > FORKED
 
 [![Build Status](https://travis-ci.org/valyala/fasthttp.svg)](https://travis-ci.org/valyala/fasthttp)
@@ -555,7 +554,7 @@ uintBuf := fasthttp.AppendUint(nil, 1234)
 
   Go1.5+. Older versions won't be supported, since their standard package
   [miss useful functions](https://github.com/trafficstars/fasthttp/issues/5).
-  
+
   **NOTE**: Go 1.9.7 is the oldest tested version. We recommend you to update as soon as you can. As of 1.11.3 we will drop 1.9.x support.
 
 * *Please provide real benchmark data and server information*
