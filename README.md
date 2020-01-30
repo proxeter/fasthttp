@@ -175,7 +175,6 @@ go get -u github.com/trafficstars/fasthttp
 
 Unfortunately, fasthttp doesn't provide API identical to net/http.
 See the [FAQ](#faq) for details.
-<<<<<<< HEAD
 There is [net/http -> fasthttp handler converter](https://godoc.org/github.com/trafficstars/fasthttp/fasthttpadaptor),
 but it is better to write fasthttp request handlers by hand in order to use
 all of the fasthttp advantages (especially high performance :) ).
@@ -556,7 +555,7 @@ uintBuf := fasthttp.AppendUint(nil, 1234)
 
   Go1.5+. Older versions won't be supported, since their standard package
   [miss useful functions](https://github.com/trafficstars/fasthttp/issues/5).
-
+  
   **NOTE**: Go 1.9.7 is the oldest tested version. We recommend you to update as soon as you can. As of 1.11.3 we will drop 1.9.x support.
 
 * *Please provide real benchmark data and server information*
