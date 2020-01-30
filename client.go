@@ -60,6 +60,11 @@ func Do(req *Request, resp *Response) error {
 //
 // It is recommended obtaining req and resp via AcquireRequest
 // and AcquireResponse in performance-critical code.
+//
+// Warning: DoTimeout does not terminate the request itself. The request will
+// continue in the background and the response will be discarded.
+// If requests take too long and the connection pool gets filled up please
+// try using a Client and setting a ReadTimeout.
 func DoTimeout(req *Request, resp *Response, timeout time.Duration) error {
 	return defaultClient.DoTimeout(req, resp, timeout)
 }
@@ -316,6 +321,11 @@ func (c *Client) Post(dst []byte, url string, postArgs *Args) (statusCode int, b
 //
 // It is recommended obtaining req and resp via AcquireRequest
 // and AcquireResponse in performance-critical code.
+//
+// Warning: DoTimeout does not terminate the request itself. The request will
+// continue in the background and the response will be discarded.
+// If requests take too long and the connection pool gets filled up please
+// try setting a ReadTimeout.
 func (c *Client) DoTimeout(req *Request, resp *Response, timeout time.Duration) error {
 	return clientDoTimeout(req, resp, timeout, c)
 }
@@ -403,7 +413,7 @@ func (c *Client) Do(req *Request, resp *Response) error {
 			DialDualStack:                 c.DialDualStack,
 			IsTLS:                         isTLS,
 			TLSConfig:                     c.TLSConfig,
-			MaxConns:                      c.MaxConnsPerHost,
+			MaxConns:                      uint64(c.MaxConnsPerHost),
 			MaxIdleConnDuration:           c.MaxIdleConnDuration,
 			MaxIdemponentCallAttempts:     c.MaxIdemponentCallAttempts,
 			ReadBufferSize:                c.ReadBufferSize,
@@ -535,7 +545,7 @@ type HostClient struct {
 	// listed in Addr.
 	//
 	// DefaultMaxConnsPerHost is used if not set.
-	MaxConns int
+	MaxConns uint64
 
 	// Keep-alive connections are closed after this duration.
 	//
@@ -604,7 +614,7 @@ type HostClient struct {
 	lastUseTime uint32
 
 	connsLock  sync.Mutex
-	connsCount int
+	connsCount uint64
 	conns      []*clientConn
 
 	addrsLock sync.Mutex
@@ -740,7 +750,7 @@ func clientGetURLDeadline(dst []byte, url string, deadline time.Time, c clientDo
 		}
 	}()
 
-	tc := acquireTimer(timeout)
+	tc := AcquireTimer(timeout)
 	select {
 	case resp := <-ch:
 		ReleaseRequest(req)
@@ -752,7 +762,7 @@ func clientGetURLDeadline(dst []byte, url string, deadline time.Time, c clientDo
 		body = dst
 		err = ErrTimeout
 	}
-	releaseTimer(tc)
+	ReleaseTimer(tc)
 
 	return statusCode, body, err
 }
@@ -917,6 +927,11 @@ func ReleaseResponse(resp *Response) {
 //
 // It is recommended obtaining req and resp via AcquireRequest
 // and AcquireResponse in performance-critical code.
+//
+// Warning: DoTimeout does not terminate the request itself. The request will
+// continue in the background and the response will be discarded.
+// If requests take too long and the connection pool gets filled up please
+// try setting a ReadTimeout.
 func (c *HostClient) DoTimeout(req *Request, resp *Response, timeout time.Duration) error {
 	return clientDoTimeout(req, resp, timeout, c)
 }
@@ -988,7 +1003,7 @@ func clientDoDeadline(req *Request, resp *Response, deadline time.Time, c client
 		}
 	}()
 
-	tc := acquireTimer(timeout)
+	tc := AcquireTimer(timeout)
 	var err error
 	select {
 	case err = <-ch:
@@ -1004,7 +1019,7 @@ func clientDoDeadline(req *Request, resp *Response, deadline time.Time, c client
 		atomic.StoreInt32(&cleanup, 1)
 		err = ErrTimeout
 	}
-	releaseTimer(tc)
+	ReleaseTimer(tc)
 
 	return err
 }
@@ -1220,6 +1235,10 @@ var (
 		"Make sure the server returns 'Connection: close' response header before closing the connection")
 )
 
+func (c *HostClient) getMaxConns() uint64 {
+	return atomic.LoadUint64(&c.MaxConns)
+}
+
 func (c *HostClient) acquireConn() (*clientConn, error) {
 	var cc *clientConn
 	createConn := false
@@ -1229,7 +1248,7 @@ func (c *HostClient) acquireConn() (*clientConn, error) {
 	c.connsLock.Lock()
 	n = len(c.conns)
 	if n == 0 {
-		maxConns := c.MaxConns
+		maxConns := c.getMaxConns()
 		if maxConns <= 0 {
 			maxConns = DefaultMaxConnsPerHost
 		}
@@ -1719,6 +1738,11 @@ type pipelineWork struct {
 //
 // It is recommended obtaining req and resp via AcquireRequest
 // and AcquireResponse in performance-critical code.
+//
+// Warning: DoTimeout does not terminate the request itself. The request will
+// continue in the background and the response will be discarded.
+// If requests take too long and the connection pool gets filled up please
+// try setting a ReadTimeout.
 func (c *PipelineClient) DoTimeout(req *Request, resp *Response, timeout time.Duration) error {
 	return c.DoDeadline(req, resp, time.Now().Add(timeout))
 }
