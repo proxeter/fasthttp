@@ -31,9 +31,12 @@ const (
 	CookieSameSiteLaxMode
 	// CookieSameSiteStrictMode sets the SameSite flag with the "Strict" parameter
 	CookieSameSiteStrictMode
+<<<<<<< HEAD
 	// CookieSameSiteNoneMode sets the SameSite flag with the "None" parameter
 	// see https://tools.ietf.org/html/draft-west-cookie-incrementalism-00
 	CookieSameSiteNoneMode
+=======
+>>>>>>> add same site attribute to cookies
 )
 
 // AcquireCookie returns an empty Cookie object from the pool.
@@ -122,12 +125,17 @@ func (c *Cookie) SameSite() CookieSameSite {
 }
 
 // SetSameSite sets the cookie's SameSite flag to the given value.
+<<<<<<< HEAD
 // set value CookieSameSiteNoneMode will set Secure to true also to avoid browser rejection
 func (c *Cookie) SetSameSite(mode CookieSameSite) {
 	c.sameSite = mode
 	if mode == CookieSameSiteNoneMode {
 		c.SetSecure(true)
 	}
+=======
+func (c *Cookie) SetSameSite(mode CookieSameSite) {
+	c.sameSite = mode
+>>>>>>> add same site attribute to cookies
 }
 
 // Path returns cookie path.
@@ -295,11 +303,14 @@ func (c *Cookie) AppendBytes(dst []byte) []byte {
 		dst = append(dst, strCookieSameSite...)
 		dst = append(dst, '=')
 		dst = append(dst, strCookieSameSiteStrict...)
+<<<<<<< HEAD
 	case CookieSameSiteNoneMode:
 		dst = append(dst, ';', ' ')
 		dst = append(dst, strCookieSameSite...)
 		dst = append(dst, '=')
 		dst = append(dst, strCookieSameSiteNone...)
+=======
+>>>>>>> add same site attribute to cookies
 	}
 	return dst
 }
@@ -398,10 +409,13 @@ func (c *Cookie) ParseBytes(src []byte) error {
 						if caseInsensitiveCompare(strCookieSameSiteStrict, kv.value) {
 							c.sameSite = CookieSameSiteStrictMode
 						}
+<<<<<<< HEAD
 					case 'n': // "none"
 						if caseInsensitiveCompare(strCookieSameSiteNone, kv.value) {
 							c.sameSite = CookieSameSiteNoneMode
 						}
+=======
+>>>>>>> add same site attribute to cookies
 					}
 				}
 			}
