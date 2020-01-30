@@ -1623,9 +1623,14 @@ func (s *Server) Serve(ln net.Listener) error {
 			s.done = make(chan struct{})
 		}
 
+<<<<<<< HEAD
 		if s.concurrencyCh == nil {
 			s.concurrencyCh = make(chan struct{}, maxWorkersCount)
 		}
+=======
+		s.ln = ln
+		s.done = make(chan struct{})
+>>>>>>> actualize version
 	}
 	s.mu.Unlock()
 
@@ -1725,6 +1730,10 @@ func (s *Server) Shutdown() error {
 		if err := ln.Close(); err != nil {
 			return err
 		}
+	}
+
+	if s.done != nil {
+		close(s.done)
 	}
 
 	if s.done != nil {

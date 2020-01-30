@@ -57,12 +57,16 @@ var (
 	strAuthorization    = []byte(HeaderAuthorization)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> actualize version
 	strCookieExpires        = []byte("expires")
 	strCookieDomain         = []byte("domain")
 	strCookiePath           = []byte("path")
 	strCookieHTTPOnly       = []byte("HttpOnly")
 	strCookieSecure         = []byte("secure")
 	strCookieMaxAge         = []byte("max-age")
+<<<<<<< HEAD
 	strCookieSameSite       = []byte("SameSite")
 	strCookieSameSiteLax    = []byte("Lax")
 	strCookieSameSiteStrict = []byte("Strict")
@@ -74,6 +78,8 @@ var (
 	strCookieHTTPOnly 		= []byte("HttpOnly")
 	strCookieSecure   		= []byte("secure")
 	strCookieMaxAge   		= []byte("max-age")
+=======
+>>>>>>> actualize version
 	strCookieSameSite       = []byte("SameSite")
 	strCookieSameSiteLax    = []byte("Lax")
 	strCookieSameSiteStrict = []byte("Strict")

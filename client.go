@@ -428,7 +428,7 @@ func (c *Client) Do(req *Request, resp *Response) error {
 			DialDualStack:                 c.DialDualStack,
 			IsTLS:                         isTLS,
 			TLSConfig:                     c.TLSConfig,
-			MaxConns:                      c.MaxConnsPerHost,
+			MaxConns:                      uint64(c.MaxConnsPerHost),
 			MaxIdleConnDuration:           c.MaxIdleConnDuration,
 			MaxConnDuration:               c.MaxConnDuration,
 			MaxIdemponentCallAttempts:     c.MaxIdemponentCallAttempts,
@@ -565,7 +565,7 @@ type HostClient struct {
 	// using HostClient.SetMaxConns(value)
 	//
 	// DefaultMaxConnsPerHost is used if not set.
-	MaxConns int
+	MaxConns uint64
 
 	// Keep-alive connections are closed after this duration.
 	//
@@ -643,7 +643,7 @@ type HostClient struct {
 	lastUseTime uint32
 
 	connsLock  sync.Mutex
-	connsCount int
+	connsCount uint64
 	conns      []*clientConn
 
 	addrsLock sync.Mutex
@@ -1067,12 +1067,15 @@ func clientDoDeadline(req *Request, resp *Response, deadline time.Time, c client
 		mu.Unlock()
 	}
 	ReleaseTimer(tc)
+<<<<<<< HEAD
 
 	select {
 	case <-ch:
 	default:
 	}
 	errorChPool.Put(chv)
+=======
+>>>>>>> actualize version
 
 	return err
 }
@@ -1295,6 +1298,7 @@ var (
 		"Make sure the server returns 'Connection: close' response header before closing the connection")
 )
 
+<<<<<<< HEAD
 type timeoutError struct {
 }
 
@@ -1320,6 +1324,10 @@ func (c *HostClient) SetMaxConns(newMaxConns int) {
 	c.connsLock.Lock()
 	c.MaxConns = newMaxConns
 	c.connsLock.Unlock()
+=======
+func (c *HostClient) getMaxConns() uint64 {
+	return atomic.LoadUint64(&c.MaxConns)
+>>>>>>> actualize version
 }
 
 func (c *HostClient) acquireConn() (*clientConn, error) {
@@ -1331,7 +1339,7 @@ func (c *HostClient) acquireConn() (*clientConn, error) {
 	c.connsLock.Lock()
 	n = len(c.conns)
 	if n == 0 {
-		maxConns := c.MaxConns
+		maxConns := c.getMaxConns()
 		if maxConns <= 0 {
 			maxConns = DefaultMaxConnsPerHost
 		}
