@@ -56,6 +56,7 @@ var (
 	strContentRange     = []byte(HeaderContentRange)
 	strAuthorization    = []byte(HeaderAuthorization)
 
+<<<<<<< HEAD
 	strCookieExpires        = []byte("expires")
 	strCookieDomain         = []byte("domain")
 	strCookiePath           = []byte("path")
@@ -66,6 +67,17 @@ var (
 	strCookieSameSiteLax    = []byte("Lax")
 	strCookieSameSiteStrict = []byte("Strict")
 	strCookieSameSiteNone   = []byte("None")
+=======
+	strCookieExpires  		= []byte("expires")
+	strCookieDomain   		= []byte("domain")
+	strCookiePath     		= []byte("path")
+	strCookieHTTPOnly 		= []byte("HttpOnly")
+	strCookieSecure   		= []byte("secure")
+	strCookieMaxAge   		= []byte("max-age")
+	strCookieSameSite       = []byte("SameSite")
+	strCookieSameSiteLax    = []byte("Lax")
+	strCookieSameSiteStrict = []byte("Strict")
+>>>>>>> add same site attribute to cookies (fix)
 
 	strClose               = []byte("close")
 	strGzip                = []byte("gzip")
