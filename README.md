@@ -3,15 +3,11 @@
 # fasthttp [![Build Status](https://travis-ci.org/valyala/fasthttp.svg?branch=master)](https://travis-ci.org/valyala/fasthttp?branch=master) [![GoDoc](https://godoc.org/github.com/trafficstars/fasthttp?status.svg)](http://godoc.org/github.com/trafficstars/fasthttp) [![fuzzit](https://app.fuzzit.dev/badge?org_id=fasthttp&branch=master)](https://fuzzit.dev) [![Go Report](https://goreportcard.com/badge/github.com/trafficstars/fasthttp)](https://goreportcard.com/report/github.com/trafficstars/fasthttp) [![Sourcegraph](https://sourcegraph.com/github.com/trafficstars/fasthttp/-/badge.svg)](https://sourcegraph.com/github.com/trafficstars/fasthttp?badge)
 
 ![FastHTTP – Fastest and reliable HTTP implementation in Go](https://github.com/fasthttp/docs-assets/raw/master/banner@0.5.png)
-=======
-=======
 > FORKED
 
->>>>>>> Update README.md
 [![Build Status](https://travis-ci.org/valyala/fasthttp.svg)](https://travis-ci.org/valyala/fasthttp)
 [![GoDoc](https://godoc.org/github.com/trafficstars/fasthttp?status.svg)](http://godoc.org/github.com/trafficstars/fasthttp)
 [![Go Report](https://goreportcard.com/badge/github.com/trafficstars/fasthttp)](https://goreportcard.com/report/github.com/trafficstars/fasthttp)
->>>>>>> rename go mod pkg name
 
 Fast HTTP implementation for Go.
 
@@ -182,10 +178,6 @@ See the [FAQ](#faq) for details.
 <<<<<<< HEAD
 There is [net/http -> fasthttp handler converter](https://godoc.org/github.com/trafficstars/fasthttp/fasthttpadaptor),
 but it is better to write fasthttp request handlers by hand in order to use
-=======
-There is [net/http -> fasthttp handler converter](https://godoc.org/github.com/trafficstars/fasthttp/fasthttpadaptor),
-but it is better to write fasthttp request handlers by hand in order to use 
->>>>>>> rename go mod pkg name
 all of the fasthttp advantages (especially high performance :) ).
 
 Important points:
@@ -539,13 +531,8 @@ uintBuf := fasthttp.AppendUint(nil, 1234)
 
 * *Why fasthttp doesn't support HTTP/2.0 and WebSockets?*
 
-<<<<<<< HEAD
   [HTTP/2.0 support](https://github.com/fasthttp/http2) is in progress. [WebSockets](https://github.com/fasthttp/websockets) has been done already.
   Third parties also may use [RequestCtx.Hijack](https://godoc.org/github.com/trafficstars/fasthttp#RequestCtx.Hijack)
-=======
-  [HTTP/2.0 support](https://github.com/fasthttp/http2) is in progress. [WebSockets](https://github.com/fasthttp/websockets) has been done already. 
-  Third parties also may use [RequestCtx.Hijack](https://godoc.org/github.com/trafficstars/fasthttp#RequestCtx.Hijack)
->>>>>>> rename go mod pkg name
   for implementing these goodies.
 
 * *Are there known net/http advantages comparing to fasthttp?*
@@ -568,13 +555,8 @@ uintBuf := fasthttp.AppendUint(nil, 1234)
 * *Which GO versions are supported by fasthttp?*
 
   Go1.5+. Older versions won't be supported, since their standard package
-<<<<<<< HEAD
   [miss useful functions](https://github.com/trafficstars/fasthttp/issues/5).
 
-=======
-  [miss useful functions](https://github.com/trafficstars/fasthttp/issues/5).
-  
->>>>>>> rename go mod pkg name
   **NOTE**: Go 1.9.7 is the oldest tested version. We recommend you to update as soon as you can. As of 1.11.3 we will drop 1.9.x support.
 
 * *Please provide real benchmark data and server information*
