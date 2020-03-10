@@ -17,18 +17,11 @@ import (
 	"time"
 )
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 var errNoCertOrKeyProvided = errors.New("cert or key has not provided")
-=======
+
 const (
 	defaultSleepDurationWhenConcurrenyLimitExceeded = time.Millisecond * 100
 )
-
-=======
->>>>>>> Considered @erikdubbelboer's codereview, part. 2
-var errNoCertOrKeyProvided = errors.New("Cert or key has not provided")
->>>>>>> Considered @erikdubbelboer's codereview
 
 var (
 	// ErrAlreadyServing is returned when calling Serve on a Server
@@ -319,23 +312,14 @@ type Server struct {
 	//     * cONTENT-lenGTH -> Content-Length
 	DisableHeaderNamesNormalizing bool
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// SleepWhenConcurrencyLimitsExceeded is a duration to be slept of if
 	// the concurrency limit in exceeded (default [when is 0]: don't sleep
 	// and accept new connections immidiatelly).
 	SleepWhenConcurrencyLimitsExceeded time.Duration
-=======
+
 	// DisableSleepWhenConcurrencyLimitsExceeded
 	// when set to true the server immediately tries to accept new connections.
 	DisableSleepWhenConcurrencyLimitsExceeded bool //concurrency limit
->>>>>>> Disable sleep when concurrency limits exceeded.
-=======
-	// SleepWhenConcurrencyLimitsExceeded is a duration to be slept of if
-	// the concurrency limit in exceeded (default [when is 0]: don't sleep
-	// and accept new connections immidiatelly).
-	SleepWhenConcurrencyLimitsExceeded time.Duration
->>>>>>> Considered @erikdubbelboer's codereview
 
 	// NoDefaultServerHeader, when set to true, causes the default Server header
 	// to be excluded from the Response.
@@ -1623,14 +1607,9 @@ func (s *Server) Serve(ln net.Listener) error {
 			s.done = make(chan struct{})
 		}
 
-<<<<<<< HEAD
 		if s.concurrencyCh == nil {
 			s.concurrencyCh = make(chan struct{}, maxWorkersCount)
 		}
-=======
-		s.ln = ln
-		s.done = make(chan struct{})
->>>>>>> actualize version
 	}
 	s.mu.Unlock()
 
@@ -1678,30 +1657,15 @@ func (s *Server) Serve(ln net.Listener) error {
 			//
 			// There is a hope other servers didn't reach their
 			// concurrency limits yet :)
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Considered @erikdubbelboer's codereview, part. 2
 			//
 			// See also: https://github.com/trafficstars/fasthttp/pull/485#discussion_r239994990
-			if s.SleepWhenConcurrencyLimitsExceeded > 0 {
-				time.Sleep(s.SleepWhenConcurrencyLimitsExceeded)
-<<<<<<< HEAD
-=======
+
 			if !s.DisableSleepWhenConcurrencyLimitsExceeded {
-				time.Sleep(100 * time.Millisecond)
->>>>>>> Disable sleep when concurrency limits exceeded.
-=======
-			sleepDuration := s.SleepWhenConcurrencyLimitsExceeded
-			if sleepDuration == 0 {
-				sleepDuration = defaultSleepDurationWhenConcurrenyLimitExceeded
-			}
-			if sleepDuration > 0 {
-				time.Sleep(sleepDuration)
->>>>>>> Considered @erikdubbelboer's codereview
-=======
->>>>>>> Considered @erikdubbelboer's codereview, part. 2
+				sleepDuration := s.SleepWhenConcurrencyLimitsExceeded
+				if sleepDuration == 0 {
+					sleepDuration = defaultSleepDurationWhenConcurrenyLimitExceeded
+				}
+				time.Sleep(s.SleepWhenConcurrencyLimitsExceeded)
 			}
 		}
 		c = nil
@@ -1730,10 +1694,6 @@ func (s *Server) Shutdown() error {
 		if err := ln.Close(); err != nil {
 			return err
 		}
-	}
-
-	if s.done != nil {
-		close(s.done)
 	}
 
 	if s.done != nil {
@@ -1888,7 +1848,6 @@ func (s *Server) GetCurrentConcurrency() uint32 {
 //
 // This function is intended be used by monitoring systems
 func (s *Server) GetOpenConnectionsCount() int32 {
-<<<<<<< HEAD
 	if atomic.LoadInt32(&s.stop) == 0 {
 		// Decrement by one to avoid reporting the extra open value that gets
 		// counted while the server is listening.
@@ -1898,9 +1857,6 @@ func (s *Server) GetOpenConnectionsCount() int32 {
 	// before we load the value of s.open. However, in the common case
 	// this avoids underreporting open connections by 1 during server shutdown.
 	return atomic.LoadInt32(&s.open)
-=======
-	return atomic.LoadInt32(&s.open) - 1
->>>>>>> Added method (*Server).GetOpenConnectionsCount()
 }
 
 func (s *Server) getConcurrency() int {

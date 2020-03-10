@@ -1067,15 +1067,6 @@ func clientDoDeadline(req *Request, resp *Response, deadline time.Time, c client
 		mu.Unlock()
 	}
 	ReleaseTimer(tc)
-<<<<<<< HEAD
-
-	select {
-	case <-ch:
-	default:
-	}
-	errorChPool.Put(chv)
-=======
->>>>>>> actualize version
 
 	return err
 }
@@ -1298,7 +1289,6 @@ var (
 		"Make sure the server returns 'Connection: close' response header before closing the connection")
 )
 
-<<<<<<< HEAD
 type timeoutError struct {
 }
 
@@ -1322,12 +1312,12 @@ var (
 // SetMaxConns sets up the maximum number of connections which may be established to all hosts listed in Addr.
 func (c *HostClient) SetMaxConns(newMaxConns int) {
 	c.connsLock.Lock()
-	c.MaxConns = newMaxConns
+	c.MaxConns = uint64(newMaxConns)
 	c.connsLock.Unlock()
-=======
+}
+
 func (c *HostClient) getMaxConns() uint64 {
 	return atomic.LoadUint64(&c.MaxConns)
->>>>>>> actualize version
 }
 
 func (c *HostClient) acquireConn() (*clientConn, error) {

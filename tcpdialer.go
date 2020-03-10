@@ -120,14 +120,11 @@ var (
 	defaultDialer = &TCPDialer{Concurrency: 1000}
 )
 
-<<<<<<< HEAD
 // Resolver represents interface of the tcp resolver.
 type Resolver interface {
 	LookupIPAddr(context.Context, string) (names []net.IPAddr, err error)
 }
 
-=======
->>>>>>> actualize version
 // TCPDialer contains options to control a group of Dial calls.
 type TCPDialer struct {
 	// Concurrency controls the maximum number of concurrent Dails
@@ -137,7 +134,6 @@ type TCPDialer struct {
 	// WARNING: This can only be changed before the first Dial.
 	// Changes made after the first Dial will not affect anything.
 	Concurrency int
-<<<<<<< HEAD
 
 	// LocalAddr is the local address to use when dialing an
 	// address.
@@ -156,8 +152,6 @@ type TCPDialer struct {
 	// 	},
 	// }
 	Resolver Resolver
-=======
->>>>>>> actualize version
 
 	tcpAddrsLock sync.Mutex
 	tcpAddrsMap  map[string]*tcpAddrEntry
@@ -295,11 +289,7 @@ func (d *TCPDialer) dial(addr string, dualStack bool, timeout time.Duration) (ne
 	n := uint32(len(addrs))
 	deadline := time.Now().Add(timeout)
 	for n > 0 {
-<<<<<<< HEAD
 		conn, err = d.tryDial(network, &addrs[idx%n], deadline, d.concurrencyCh)
-=======
-		conn, err = tryDial(network, &addrs[idx%n], deadline, d.concurrencyCh)
->>>>>>> actualize version
 		if err == nil {
 			return conn, nil
 		}
@@ -421,11 +411,7 @@ func (d *TCPDialer) getTCPAddrs(addr string, dualStack bool) ([]net.TCPAddr, uin
 	d.tcpAddrsLock.Unlock()
 
 	if e == nil {
-<<<<<<< HEAD
 		addrs, err := resolveTCPAddrs(addr, dualStack, d.Resolver)
-=======
-		addrs, err := resolveTCPAddrs(addr, dualStack)
->>>>>>> actualize version
 		if err != nil {
 			d.tcpAddrsLock.Lock()
 			e = d.tcpAddrsMap[addr]

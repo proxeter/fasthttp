@@ -1,6 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
-# fasthttp [![Build Status](https://travis-ci.org/valyala/fasthttp.svg?branch=master)](https://travis-ci.org/valyala/fasthttp?branch=master) [![GoDoc](https://godoc.org/github.com/valyala/fasthttp?status.svg)](http://godoc.org/github.com/valyala/fasthttp) [![fuzzit](https://app.fuzzit.dev/badge?org_id=fasthttp&branch=master)](https://fuzzit.dev) [![Go Report](https://goreportcard.com/badge/github.com/valyala/fasthttp)](https://goreportcard.com/report/github.com/valyala/fasthttp) [![Sourcegraph](https://sourcegraph.com/github.com/valyala/fasthttp/-/badge.svg)](https://sourcegraph.com/github.com/valyala/fasthttp?badge)
+# fasthttp [![Build Status](https://travis-ci.org/valyala/fasthttp.svg?branch=master)](https://travis-ci.org/valyala/fasthttp?branch=master) [![GoDoc](https://godoc.org/github.com/trafficstars/fasthttp?status.svg)](http://godoc.org/github.com/trafficstars/fasthttp) [![fuzzit](https://app.fuzzit.dev/badge?org_id=fasthttp&branch=master)](https://fuzzit.dev) [![Go Report](https://goreportcard.com/badge/github.com/trafficstars/fasthttp)](https://goreportcard.com/report/github.com/trafficstars/fasthttp) [![Sourcegraph](https://sourcegraph.com/github.com/trafficstars/fasthttp/-/badge.svg)](https://sourcegraph.com/github.com/trafficstars/fasthttp?badge)
 
 ![FastHTTP – Fastest and reliable HTTP implementation in Go](https://github.com/fasthttp/docs-assets/raw/master/banner@0.5.png)
 =======
@@ -180,7 +180,7 @@ go get -u github.com/trafficstars/fasthttp
 Unfortunately, fasthttp doesn't provide API identical to net/http.
 See the [FAQ](#faq) for details.
 <<<<<<< HEAD
-There is [net/http -> fasthttp handler converter](https://godoc.org/github.com/valyala/fasthttp/fasthttpadaptor),
+There is [net/http -> fasthttp handler converter](https://godoc.org/github.com/trafficstars/fasthttp/fasthttpadaptor),
 but it is better to write fasthttp request handlers by hand in order to use
 =======
 There is [net/http -> fasthttp handler converter](https://godoc.org/github.com/trafficstars/fasthttp/fasthttpadaptor),
@@ -541,7 +541,7 @@ uintBuf := fasthttp.AppendUint(nil, 1234)
 
 <<<<<<< HEAD
   [HTTP/2.0 support](https://github.com/fasthttp/http2) is in progress. [WebSockets](https://github.com/fasthttp/websockets) has been done already.
-  Third parties also may use [RequestCtx.Hijack](https://godoc.org/github.com/valyala/fasthttp#RequestCtx.Hijack)
+  Third parties also may use [RequestCtx.Hijack](https://godoc.org/github.com/trafficstars/fasthttp#RequestCtx.Hijack)
 =======
   [HTTP/2.0 support](https://github.com/fasthttp/http2) is in progress. [WebSockets](https://github.com/fasthttp/websockets) has been done already. 
   Third parties also may use [RequestCtx.Hijack](https://godoc.org/github.com/trafficstars/fasthttp#RequestCtx.Hijack)
@@ -569,7 +569,7 @@ uintBuf := fasthttp.AppendUint(nil, 1234)
 
   Go1.5+. Older versions won't be supported, since their standard package
 <<<<<<< HEAD
-  [miss useful functions](https://github.com/valyala/fasthttp/issues/5).
+  [miss useful functions](https://github.com/trafficstars/fasthttp/issues/5).
 
 =======
   [miss useful functions](https://github.com/trafficstars/fasthttp/issues/5).

@@ -7,8 +7,8 @@ import (
 	"os/exec"
 	"runtime"
 
-	"github.com/valyala/fasthttp"
-	"github.com/valyala/fasthttp/reuseport"
+	"github.com/trafficstars/fasthttp"
+	"github.com/trafficstars/fasthttp/reuseport"
 )
 
 const preforkChildFlag = "-prefork-child"
