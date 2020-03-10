@@ -1701,6 +1701,10 @@ func (s *Server) Shutdown() error {
 		close(s.done)
 	}
 
+	if s.done != nil {
+		close(s.done)
+	}
+
 	// Closing the listener will make Serve() call Stop on the worker pool.
 	// Setting .stop to 1 will make serveConn() break out of its loop.
 	// Now we just have to wait until all workers are done.
