@@ -76,12 +76,60 @@ func TestCookieSecure(t *testing.T) {
 	if err := c.Parse("foo=bar"); err != nil {
 		t.Fatalf("unexpected error: %s", err)
 	}
-	if c.HTTPOnly() {
+	if c.Secure() {
 		t.Fatalf("Unexpected secure flag set")
 	}
 	s = c.String()
 	if strings.Contains(s, "secure") {
 		t.Fatalf("unexpected secure flag in cookie %q", s)
+	}
+}
+
+func TestCookieSameSite(t *testing.T) {
+	var c Cookie
+
+	if err := c.Parse("foo=bar; samesite"); err != nil {
+		t.Fatalf("unexpected error: %s", err)
+	}
+	if c.SameSite() != CookieSameSiteDefaultMode {
+		t.Fatalf("SameSite must be set")
+	}
+	s := c.String()
+	if !strings.Contains(s, "; SameSite") {
+		t.Fatalf("missing SameSite flag in cookie %q", s)
+	}
+
+	if err := c.Parse("foo=bar; samesite=lax"); err != nil {
+		t.Fatalf("unexpected error: %s", err)
+	}
+	if c.SameSite() != CookieSameSiteLaxMode {
+		t.Fatalf("SameSite Lax Mode must be set")
+	}
+	s = c.String()
+	if !strings.Contains(s, "; SameSite=Lax") {
+		t.Fatalf("missing SameSite flag in cookie %q", s)
+	}
+
+	if err := c.Parse("foo=bar; samesite=strict"); err != nil {
+		t.Fatalf("unexpected error: %s", err)
+	}
+	if c.SameSite() != CookieSameSiteStrictMode {
+		t.Fatalf("SameSite Strict Mode must be set")
+	}
+	s = c.String()
+	if !strings.Contains(s, "; SameSite=Strict") {
+		t.Fatalf("missing SameSite flag in cookie %q", s)
+	}
+
+	if err := c.Parse("foo=bar"); err != nil {
+		t.Fatalf("unexpected error: %s", err)
+	}
+	if c.SameSite() != CookieSameSiteDisabled {
+		t.Fatalf("Unexpected SameSite flag set")
+	}
+	s = c.String()
+	if strings.Contains(s, "SameSite") {
+		t.Fatalf("unexpected SameSite flag in cookie %q", s)
 	}
 }
 
@@ -285,8 +333,9 @@ func TestAppendRequestCookieBytes(t *testing.T) {
 }
 
 func testAppendRequestCookieBytes(t *testing.T, s, expectedS string) {
-	var cookies []argsKV
-	for _, ss := range strings.Split(s, "&") {
+	kvs := strings.Split(s, "&")
+	cookies := make([]argsKV, 0, len(kvs))
+	for _, ss := range kvs {
 		tmp := strings.SplitN(ss, "=", 2)
 		if len(tmp) != 2 {
 			t.Fatalf("Cannot find '=' in %q, part of %q", ss, s)
